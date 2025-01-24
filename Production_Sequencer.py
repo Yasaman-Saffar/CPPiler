@@ -38,22 +38,9 @@ class Nonrecursive_Predictive_Parser:
             
             if self.terminal == x:
                 self.moving_token()
-                
-                # self.i += 1 # Moving next token if terminal matches the token
-                # if self.i != len(self.input_tokens):
-                #     self.token = self.input_tokens[self.i]
-                # moved = True
-                
             else:
                 production = parse_table[x][self.terminal]
                 self.output_queue.append(production)
                 self.stack = self.stack_update(self.stack, production)
-                
-            # if moved:
-            #     while self.token.value == '<' or self.token.value == 'iostream' or self.token.value == '>':
-            #         self.i += 1
-            #         self.token = self.input_tokens[self.i]
-                    
-            #     self.terminal = self.token.tokenName if self.token.tokenName in self.abstract_types else self.token.value
-            #     moved = False
+
         return self.output_queue
