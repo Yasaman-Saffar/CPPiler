@@ -1,37 +1,59 @@
-from Parse_table import parse_table
-
-def stack_update(stack, next_terminal):
-    right_side = next_terminal.split('→')[1].strip().split()
-    
-    for symbol in reversed(right_side):
-        if symbol != 'ε':
-            stack.append(symbol)
-    return stack
-
-def Nonrecursive_Predictive_Parser(input_tokens, parser_table):
-    stack = ['Start']
-    
-    abstract_types = ['Identifiers', 'Numbers', 'Strings']
-    output_queue = []
-    i = 0
-    token = input_tokens[i]
-    
-    while stack:
-        terminal = token.tokenName if token.tokenName in abstract_types else token.value
-        x = stack.pop()
+class Nonrecursive_Predictive_Parser:
+    def __init__(self, tokens):
+        self.input_tokens = tokens
+        self.i = 0
+        self.stack = ['Start']
+        self.output_queue = []
         
-        if terminal == x:
-            i += 1 # Moving to next token if terminal matches the token
-            token = input_tokens[i]
+        self.token = self.input_tokens[self.i]
+        self.abstract_types = ['Identifier', 'Number', 'String']
+        self.terminal = (self.token.tokenName if self.token.tokenName in self.abstract_types else self.token.value)
+    
+    def stack_update(self, stack, next_terminal):
+        right_side = next_terminal.split('→')[1].strip().split()
+        
+        for symbol in reversed(right_side):
+            if symbol != 'ε':
+                stack.append(symbol)
+        return stack
+    
+    def moving_token(self):
+        self.i += 1 # Moving next token if terminal matches the token
+        if self.i < len(self.input_tokens):
+            self.token = self.input_tokens[self.i]
+            self.skip()
+            self.terminal = (self.token.tokenName if self.token.tokenName in self.abstract_types else self.token.value)
+    
+    def skip(self):
+        while (self.token.value == '<' or self.token.value == 'iostream' or self.token.value == '>') and (self.i < len(self.input_tokens)):
+            self.i += 1
+            if self.i < len(self.input_tokens):
+                self.token = self.input_tokens[self.i]
             
-            if token.value == '>' or token.value == '<' or token.value == 'iostream':
-                i += 1
-                continue
-
-        next_terminal = parse_table[x][terminal]
+    def parse(self, parse_table):
+        moved = False
+        
+        while self.stack:
+            x = self.stack.pop()
             
+            if self.terminal == x:
+                self.moving_token()
                 
-        output_queue.append(next_terminal)
-        stack = stack_update(stack, next_terminal)
-        
-        
+                # self.i += 1 # Moving next token if terminal matches the token
+                # if self.i != len(self.input_tokens):
+                #     self.token = self.input_tokens[self.i]
+                # moved = True
+                
+            else:
+                production = parse_table[x][self.terminal]
+                self.output_queue.append(production)
+                self.stack = self.stack_update(self.stack, production)
+                
+            # if moved:
+            #     while self.token.value == '<' or self.token.value == 'iostream' or self.token.value == '>':
+            #         self.i += 1
+            #         self.token = self.input_tokens[self.i]
+                    
+            #     self.terminal = self.token.tokenName if self.token.tokenName in self.abstract_types else self.token.value
+            #     moved = False
+        return self.output_queue

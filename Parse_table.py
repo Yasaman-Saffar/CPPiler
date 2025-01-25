@@ -1,10 +1,10 @@
 grammer = {
     "Start" : ["S N M"],
     "S" : ["#include S", "ε"],
-    "N" : ["using namespace std", "ε"],
+    "N" : ["using namespace std ;", "ε"],
     "M" : ["int main(){T V}"],
-    "T" : ["Id T","L T", "Loop T", "Input T", "Output T", "Operation T", "ε"],
-    "V" : ["return 0", "ε"],
+    "T" : ["Id T","L T", "Loop T", "Input T", "Output T", "ε"],
+    "V" : ["return Number;", "ε"],
     "Id" : ["int L", "float L"],
     "L": ["Identifier Assign Z"],
     "Z": [", Identifier Assign Z", ";"],
@@ -35,7 +35,7 @@ parse_table = {
     },
     
     "N": {
-        "using": "N → using namespace std;",
+        "using": "N → using namespace std ;",
         "int": "N → ε",
     },
     
@@ -48,7 +48,6 @@ parse_table = {
         "return" : "T → ε",
         "int" : "T → Id T",
         "float" : "T → Id T",
-        "Number" : "T → Operation T",
         "Identifier" : "T → L T",
         "while" : "T → Loop T",
         "cin" : "T → Input T",
@@ -82,16 +81,16 @@ parse_table = {
     },
     
     "Input" : {
-        "cin" : "Input → cin >> Identifier F;",
+        "cin" : "Input → cin >> Identifier F ;",
     },
     
     "Output" : {
-        "cout" : "Output → cout << C H;",
+        "cout" : "Output → cout << C H ;",
     },
 
     "V" : {
         "}" : "V → ε",
-        "return" : "V → return 0;",
+        "return" : "V → return Number ;",
     },
 
     "L" : {
@@ -105,6 +104,7 @@ parse_table = {
     
     "P" : {
         ")" : "P → ε",
+        ";" : "P → ε",
         "+" : "P → O W P",
         "-" : "P → O W P",
         "*" : "P → O W P",
@@ -136,6 +136,7 @@ parse_table = {
     "F" : {
         "int" : "F → ε",
         "float" : "F → ε",
+        ";" : "F → ε",
         "Identifier" : "F → ε",
         "while" : "F → ε",
         "cin" : "F → ε",
@@ -152,6 +153,7 @@ parse_table = {
         "cin" : "H → ε",
         "cout" : "H → ε",
         "<<" : "H → << C H",
+        ";" : "H → ε",
         "$" : "H → ε",
     },
 
