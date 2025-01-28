@@ -35,7 +35,7 @@ class parse_tree():
             if element.value in non_terminals and element != 'ε':
                 self.node_stack.append(element)
 
-    def print_parse_tree(self, node, level=0):
+    def print_parse_tree(self, node, level=0):   # O(n)
         if node.token_value is not None:
             print("  " * level + f"{node.value} ({node.token_value})") 
         else:
