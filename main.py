@@ -2,6 +2,7 @@ import sys
 from Lexical_Analyzer import Tokenizer
 from Production_Sequencer import Nonrecursive_Predictive_Parser
 from Parse_table import parse_table
+from Parse_Tree import parse_tree
 
 class main():
     def __init__(self):
@@ -21,7 +22,6 @@ class main():
         npp = Nonrecursive_Predictive_Parser(tokens)
         output_queue = npp.parse(parse_table)
         self.productions_output(output_queue)
-        # self.print_parse_tree(npp)
         
     def productions_output(self, oq):
         print('\n--------------PRODUCTIONS----------------\n')
@@ -29,9 +29,6 @@ class main():
             print(n)
         print('\n----------------------------------------')
     
-    # def print_parse_tree(self, npp):
-    #     npp.print_parse_tree(npp.parse_tree_root)
-
 
 if __name__ == '__main__':
     m = main()
