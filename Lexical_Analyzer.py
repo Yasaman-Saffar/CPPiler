@@ -34,7 +34,7 @@ class Tokenizer:
             kind = match.lastgroup
             value = match.group()
         
-            # Identifying okens that require manual processing
+            # Identifying tokens that require manual processing
             if kind == 'Number':
                 float(value) if '.' in value else int(value)
             elif kind == 'Skip' : 
@@ -44,23 +44,3 @@ class Tokenizer:
 
             self.tokens.append(Token(kind, value))
         return self.tokens
-        
-
-# code = '''#include <iostream>
-#     using namespace std;
-#     int main(){
-#     int x;
-#     int s=0, t=10;
-#     while (t >= 0){
-#     cin>>x;
-#     t = t - 1;
-#     s = s + x;
-#     }
-#     cout<<"sum="<<s;
-#     return 0;
-#     }
-# '''
-# tokenizer = Tokenizer(code)
-# tokens = tokenizer.tokenize()
-# for token in tokens:
-#     print(token)
