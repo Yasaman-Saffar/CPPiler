@@ -14,7 +14,7 @@ class Tokenizer:
         self.code = code
         self.tokens = []
     
-    def tokenize(self):
+    def tokenize(self):   # Time complexity : O(n)
         expressions = [
             ('Reservedword', r'#include|\b(int|float|void|return|if|while|cin|cout|continue|break|using|iostream|namespace|std|main)\b'),
             ('Symbol', r'[\(\)\[\]\{\},:;]|==|!=|<=|>=|<<|>>|<|>|\+|-|\*|=|/|\|\|'),
