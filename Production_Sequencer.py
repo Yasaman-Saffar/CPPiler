@@ -51,7 +51,10 @@ class Nonrecursive_Predictive_Parser:
             
             if self.terminal == x:
                 self.moving_token()
+<<<<<<< HEAD
                     
+=======
+>>>>>>> 9964f33897efc4cb2b7369f881dd7548e6235ded
             else:
                 production = parse_table[x][self.terminal]
                 self.output_queue.append(production)
