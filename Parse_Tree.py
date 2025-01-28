@@ -17,7 +17,7 @@ class parse_tree():
         self.node_stack = [self.root]
         return 
         
-    def build_tree(self, children, current_index, token_stream, abstract_types, non_terminals):
+    def build_tree(self, children, current_index, token_stream, abstract_types, non_terminals):   # O(k) k is a small and constant number
         current_node = self.node_stack.pop()
         temp_list = []
         
