@@ -8,26 +8,22 @@ class Parse_tree_Node():
         self.children.append(child)
         
 class parse_tree():
-    def __init__(self, input_tokens,  abstract_types, non_terminals):
+    def __init__(self):
         self.root = None
         self.node_stack = []
-        
-        self.token_stream = input_tokens
-        self.at =  abstract_types
-        self.non_t = non_terminals
-        
     
     def initialize_root(self, root_value):
         self.root = Parse_tree_Node(root_value)
         self.node_stack = [self.root]
+        return 
         
-    def build_tree(self, children, current_index):
+    def build_tree(self, children, current_index, token_stream, abstract_types, non_terminals):
         current_node = self.node_stack.pop()
         temp_list = []
         
         for child in children:
-            if child in self.at:
-                new_node = Parse_tree_Node(child, self.token_stream[current_index].value)
+            if child in abstract_types:
+                new_node = Parse_tree_Node(child, token_stream[current_index].value)
             else:
                 new_node = Parse_tree_Node(child)
             
@@ -36,7 +32,7 @@ class parse_tree():
             current_index += 1
         
         for element in reversed(temp_list):
-            if element.value in self.non_t and element != 'ε':
+            if element.value in non_terminals and element != 'ε':
                 self.node_stack.append(element)
 
     def print_parse_tree(self, node, level=0):

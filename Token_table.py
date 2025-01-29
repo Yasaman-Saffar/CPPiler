@@ -25,9 +25,3 @@ def sorted_tokenTable(tokens):
     sorted_tokens = sorted(tokens, key=lambda x: (priority[x.tokenName], x.value))  
     sorted_hash = [{"TokenName" : token.tokenName, "hashedValue": hashlib.sha256(token.value.encode()).hexdigest()} for token in sorted_tokens]
     return sorted_hash
-
-
-# toks = making_tokens()
-# hashed = sorted_tokenTable(toks)
-# for t in hashed:
-#     print(f"TokenName: {t['TokenName']}, Value: {t['hashedValue']}")
