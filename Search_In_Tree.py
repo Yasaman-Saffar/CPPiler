@@ -9,7 +9,7 @@ class Search_in_tree:
     def initialize_identifier(self, id):
         self.identifier = id
     
-    def find_identifier_bfs(self, identifier, root):
+    def find_identifier_bfs(self, identifier, root): # O(n)
         queue = deque([(root, [])])
         
         while queue:
@@ -22,7 +22,7 @@ class Search_in_tree:
                 queue.append((child, path + [current_node]))
         return None
 
-    def reconstruct_code_from_subtree(self, node):
+    def reconstruct_code_from_subtree(self, node):   # O(m)
         if not self.identifier_found:
             if node.value == ',' or node.value == 'Number':
                 if node.value == 'Number':
@@ -39,7 +39,7 @@ class Search_in_tree:
             if child_definition:
                 self.definition += child_definition
                 
-    def find_type(self, path):
+    def find_type(self, path): # O(m)
         for p in path:
             if p.value == 'Id':
                 for child in p.children:

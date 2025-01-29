@@ -20,7 +20,7 @@ def making_tokens():
     tokens = tokenizer.tokenize()
     return tokens
 
-def sorted_tokenTable(tokens):
+def sorted_tokenTable(tokens):   # O(n log n)
     priority = {'Reservedword' : 1, 'Identifier' : 2, 'Symbol' : 3, 'Number' : 4, 'String' : 5}
     sorted_tokens = sorted(tokens, key=lambda x: (priority[x.tokenName], x.value))  
     sorted_hash = [{"TokenName" : token.tokenName, "hashedValue": hashlib.sha256(token.value.encode()).hexdigest()} for token in sorted_tokens]

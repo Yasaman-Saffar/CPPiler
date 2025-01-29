@@ -16,7 +16,7 @@ class Nonrecursive_Predictive_Parser:
         self.parse_Tree.initialize_root('Start')
         
         
-    def stack_update(self, stack, next_terminal):
+    def stack_update(self, stack, next_terminal):     # O(k)
         right_side = next_terminal.split('→')[1].strip().split()
         self.parse_Tree.build_tree(right_side, self.i, self.input_tokens, self.abstract_types, self.non_terminals)
         
@@ -38,7 +38,7 @@ class Nonrecursive_Predictive_Parser:
             if self.i < len(self.input_tokens):
                 self.token = self.input_tokens[self.i]
             
-    def parse(self, parse_table):
+    def parse(self, parse_table):   # O(n)
         while self.stack:
             x = self.stack.pop()
             
